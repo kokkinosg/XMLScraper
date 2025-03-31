@@ -1,6 +1,7 @@
 // This class is responsible for examining a given directory and returning all files of the specified extension
 
 import  java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 
 public class FileLocator {
@@ -8,6 +9,7 @@ public class FileLocator {
     //#region Local variables
     private String primaryDirectoryPath; 
     private ArrayList<File> pathArrayList;
+    private ArrayList<File> typePathArrayList;
 
     //#endregion
 
@@ -15,27 +17,64 @@ public class FileLocator {
 
     public FileLocator(String primaryDirectoryPath){
 
-        //Initialise the directory by passing it as an argument to the constructor.
+        // Initialise the directory by passing it as an argument to the constructor.
         this.primaryDirectoryPath = primaryDirectoryPath;
+        // Initialise an empty array list to take all files of a specified file.
+        this.typePathArrayList = new ArrayList<File>();
+        // Initialise an empty array list to take all files of all types. 
+        this.pathArrayList = new ArrayList<File>();
     }
 
     //#endregion 
 
-    //#region Methods
+    //#region Public Methods
 
-    // Get all files in a directory.    
+    // Gets all files of a specified type, e.g. xml. The arguments should be a string like ".xml"
+    public ArrayList<File> getSpecificFilePaths(String fileType){
+
+        // Name of each file
+        String fileName;
+
+        // Get all files regardless of their type.        
+        ArrayList<File> allFilepaths = getAllFilePaths();
+
+        // Interogate each file to check if it is of the specified extension
+        for (File path:allFilepaths){
+            // Get the name of file: "example.xml"
+            fileName = path.getName();
+            // Check if it contains the extension and if it does, add it to the list
+            if(fileName.contains(".xml")){
+                typePathArrayList.add(path);
+            }
+        }
+        return typePathArrayList;
+    }
+
+
+    // Get all files in a directory.  
+    // To be made private  
     public ArrayList<File> getAllFilePaths(){
 
         // Declare and initialise the primary directory as a file object
         File primaryDirectory = new File(primaryDirectoryPath);
-        // Initiialise the arrayList to hold all file objects
-        this.pathArrayList = new ArrayList<File>();
         // Find all files in the primary directory inlcuding all files in subdirectories
         scanDirectory(primaryDirectory);
 
         // Return the arraylist which contains all file pahts. 
         return pathArrayList;
     }
+
+    public void printFilePaths(ArrayList<File> allFilePaths ){
+        System.out.println("Files are:"); 
+  
+        // Display the names of the files 
+        for (int i = 0; i < allFilePaths.size(); i++) { 
+            System.out.println(allFilePaths.get(i)); 
+        }
+    }
+    //#endregion
+
+    //#region Helper functions
 
     // Recursive helper function to dive into a folder until there are no more folders to explore. 
     private void scanDirectory(File directory ){
@@ -56,13 +95,6 @@ public class FileLocator {
         }
     }
 
-    public void printFilePaths(ArrayList<File> allFilePaths ){
-        System.out.println("Files are:"); 
-  
-        // Display the names of the files 
-        for (int i = 0; i < allFilePaths.size(); i++) { 
-            System.out.println(allFilePaths.get(i)); 
-        }
-    }
-    //#region
+    //#endregion
+
 }
