@@ -22,15 +22,15 @@ public class FileLocator {
 
     //#region Methods
     
-    public File[] getAllFilePaths(String directory){
+    public File[] getAllFilePaths(){
         // Create a File class object to get access to the methods. Pass the directory to the constructor.
-        fileObj = new File(directory);
+        fileObj = new File(directoryPath);
         // Get all names of the files present in the directory
         filePaths = fileObj.listFiles();
         return filePaths;
     }
 
-    public void readFilePaths(File[] filePaths){
+    public void printFilePaths(File[] filePaths){
         System.out.println("Files are:"); 
   
         // Display the names of the files 
