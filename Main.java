@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.*;
 
 public class Main {
 
@@ -7,9 +8,8 @@ public class Main {
         String path = "/Users/george/Downloads/Scripts";
 
         FileLocator fileLocator = new FileLocator(path);
-        File[] filePaths = fileLocator.getAllFilePaths();
+        ArrayList<File> filePaths = fileLocator.getAllFilePaths();
         fileLocator.printFilePaths(filePaths);
 
     }
-    
 }
