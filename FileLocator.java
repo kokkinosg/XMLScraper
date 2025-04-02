@@ -10,12 +10,13 @@ public class FileLocator {
     private String primaryDirectoryPath; 
     private ArrayList<File> pathArrayList;
     private ArrayList<File> typePathArrayList;
+    private String fileType;
 
     //#endregion
 
     //#region Constructor
 
-    public FileLocator(String primaryDirectoryPath){
+    public FileLocator(String primaryDirectoryPath, String fileType){
 
         // Initialise the directory by passing it as an argument to the constructor.
         this.primaryDirectoryPath = primaryDirectoryPath;
@@ -23,14 +24,16 @@ public class FileLocator {
         this.typePathArrayList = new ArrayList<File>();
         // Initialise an empty array list to take all files of all types. 
         this.pathArrayList = new ArrayList<File>();
+        // Initialise the file type
+        this.fileType = fileType;
     }
 
     //#endregion 
 
     //#region Public Methods
 
-    // Gets all files of a specified type, e.g. xml. The arguments should be a string like ".xml"
-    public ArrayList<File> getSpecificFilePaths(String fileType){
+    // Gets all files of a specified type, e.g. xml. 
+    public ArrayList<File> getSpecificFilePaths(){
 
         // Name of each file
         String fileName;
@@ -43,7 +46,7 @@ public class FileLocator {
             // Get the name of file: "example.xml"
             fileName = path.getName();
             // Check if it contains the extension and if it does, add it to the list
-            if(fileName.contains(".xml")){
+            if(fileName.contains(fileType)){
                 typePathArrayList.add(path);
             }
         }
@@ -64,13 +67,21 @@ public class FileLocator {
         return pathArrayList;
     }
 
-    public void printFilePaths(ArrayList<File> allFilePaths ){
+    public void printFilePaths(ArrayList<File> allFilePaths){
         System.out.println("Files are:"); 
   
         // Display the names of the files 
         for (int i = 0; i < allFilePaths.size(); i++) { 
             System.out.println(allFilePaths.get(i)); 
         }
+    }
+
+    public void printFileCount(ArrayList<File> allFilePaths, ArrayList<File> typeFilePaths){
+
+        int allFileCount = allFilePaths.size();
+        int typeFileCount = typeFilePaths.size();
+        System.out.println("Total number of files = " + allFileCount);
+        System.out.println("Total number of "+ fileType + " = " + typeFileCount);
     }
     //#endregion
 
