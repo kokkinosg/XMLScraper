@@ -36,7 +36,7 @@ public class CSVExporter {
     public void exportToCSV(ArrayList<ArrayList<String>> data){
         try {
             // Create the headers
-            bufferedWriter.write("Script Name&&&General Description&&&Step by Step");
+            bufferedWriter.write("Script Name$General Description$Step by Step");
             bufferedWriter.newLine();
 
             for (ArrayList<String> singleFileComments: data){
@@ -81,7 +81,7 @@ public class CSVExporter {
         String cleanSteps = steps.replaceAll("[\\r\\n]+", " ");
         
         //Compose the row
-        String row = scriptName + "&&&" + cleanGenDesc + "&&&" + cleanSteps;
+        String row = scriptName + "$" + cleanGenDesc + "$" + cleanSteps;
         //System.out.println(row);
 
         return row;
