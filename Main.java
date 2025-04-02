@@ -29,5 +29,9 @@ public class Main {
 
         System.out.println(fileHandler.getXMLtoString(typeFilePaths.get(0)));
 
+        System.out.println("........................................");
+
+        fileHandler.printFileCommentsOnly(typeFilePaths.get(10));
+
     }
 }

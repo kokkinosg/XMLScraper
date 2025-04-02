@@ -26,7 +26,30 @@ public class FileHandler {
     //#region Methods
     // Prints the comments of a file only 
     public void printFileCommentsOnly(File file){
+        // Get the XML to a string.
+        String xmlString= getXMLtoString(file);
+        // Extract the first comment 
+        String comment = extractSingleComment(xmlString);
+        //Print it.
+        System.out.println(comment);
+    }
 
+    public String extractSingleComment (String xmlString){
+        // Declare and initialise the comments. 
+
+        String commentStart = "<!--";
+        String commentEnd = "-->";
+        int indexCommentStart;
+        int indexCommentEnd;
+        String commentString;
+
+        // Get the index of the first character of the commentStart and add the length of the comment Start to ensure that we read all characters after that.
+        indexCommentStart = (xmlString.indexOf(commentStart)) + commentStart.length();
+        indexCommentEnd = xmlString.indexOf(commentEnd);
+        // Extract a substring between the index comments
+        commentString = xmlString.substring(indexCommentStart, indexCommentEnd);
+
+        return commentString;
     }
     
     // Prints the contents of a single file
