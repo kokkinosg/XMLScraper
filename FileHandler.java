@@ -33,9 +33,7 @@ public class FileHandler {
         // Get the XML to a string.
         String xmlString= getXMLtoString(file);
 
-        // Initialise the comment variables
-        commentStart = "<!--";
-        commentEnd = "-->";
+        
     }
 
     
@@ -79,23 +77,26 @@ public class FileHandler {
 
     //#region Helper functions
 
-    // Get an arraylist consisting of all comments
+    // Get an arraylist consisting of all comments by passing it the xml in a single string. 
     private ArrayList<String> identifyAllComments(String xmlString){
 
-        // Delcare a reducedString which will be updated eveytime we cut a comment out of the original string. 
-        String processingString;
+        // Initialise a processingString which will be updated eveytime we cut a comment out of the original string. 
+        String processingString = xmlString;
         String comment; 
 
         // Initialise the ArrayList to contain the comments to a file
         commentsList = new ArrayList<String>();
 
-        while(true){
-            // Extract the first comment 
+        while(doesStringHaveComments(processingString)){
+            // Extract the comment 
             comment = identifySingleComment(xmlString);
             // Cut it out of the original string
             processingString = xmlString.replace(comment, "");
+            // Add it to the comments list
             commentsList.add(comment);
         }
+        // Note that the comments are also stored in the class. 
+        return commentsList;
     }
 
     // Get a string consiting of a single comments inlcuding the comment start and end singles.
@@ -127,4 +128,6 @@ public class FileHandler {
             return true;
         }
     }
+
+    //#endregion
 }
