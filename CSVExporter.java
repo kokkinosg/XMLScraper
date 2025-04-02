@@ -136,7 +136,12 @@ public class CSVExporter {
             String processedStep = removeCommentMarks(singleFileComments.get(i));
             // Append the step and add a newline.
             // combinedSteps.append(processedStep).append(System.lineSeparator());
-            combinedSteps.append(processedStep).append("->");
+            combinedSteps.append(processedStep);
+
+            // If there are more steps after this one, add the arrow 
+            if (i<singleFileComments.size()-1){
+                combinedSteps.append("->");
+            }
         }
         return combinedSteps.toString();
     }
