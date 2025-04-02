@@ -59,7 +59,16 @@ public class FileHandler {
         
         // Get the XML to a string.
         String xmlString= getXMLtoString(file);
-        ArrayList<String> comments = identifyAllComments(xmlString);
+
+        // Add the name of the file to a string
+        String fileName = file.getName();
+
+        // Modify the xml string to include the name of the file
+
+        String processedXMLString = "<!--" + fileName + "-->" + xmlString;
+
+        // Get all comments from a file into an arraylist.
+        ArrayList<String> comments = identifyAllComments(processedXMLString);
 
         return comments;
     }

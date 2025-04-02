@@ -32,9 +32,22 @@ public class Main {
         System.out.println("........................................");
 
         //fileHandler.printFileCommentsOnly(typeFilePaths.get(7));
+
+        // Get all comments from all files
         ArrayList<ArrayList<String>> allFileComments = fileHandler.getAllCommentsFromAllFiles();
 
-        System.out.println(allFileComments.toString());
+        //System.out.println(allFileComments.toString());
+
+        System.out.println("........................................");
+
+        // Path to CSV
+        String csvPath ="/Users/george/Downloads/testCSV.csv";
+
+        CSVExporter csvExportClass = new CSVExporter(csvPath);
+        csvExportClass.exportToCSV(allFileComments);
+
+        System.out.println("Process done");
+
 
     }
 }
