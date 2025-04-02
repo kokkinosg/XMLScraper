@@ -30,6 +30,17 @@ public class FileHandler {
     //#endregion
 
     //#region Methods
+   
+    // Get all comments from a file into an ArrayList.
+    public ArrayList<String> getAllFileComments(File file){
+        
+        // Get the XML to a string.
+        String xmlString= getXMLtoString(file);
+        ArrayList<String> comments = identifyAllComments(xmlString);
+
+        return comments;
+    }
+
     // Prints the comments of a file only 
     public void printFileCommentsOnly(File file){
 
@@ -43,10 +54,6 @@ public class FileHandler {
         }
     }
 
-    // Get all comments from a file into an ArrayList.
-    
-
-    
     // Prints the contents of a single file
     public void printFileContents(File file){
         try {
@@ -63,8 +70,12 @@ public class FileHandler {
         }
     }
 
+    //#endregion
+
+    //#region Helper functions
+
     // Appends all of XML contents to a single string.
-    public String getXMLtoString(File file){
+     private String getXMLtoString(File file){
 
         String xmlContentsString;
         String filePath;
@@ -82,10 +93,6 @@ public class FileHandler {
         }
         return "";
     }
-
-    //#endregion
-
-    //#region Helper functions
 
     // Get an arraylist consisting of all comments by passing it the xml in a single string. 
     private ArrayList<String> identifyAllComments(String xmlString){
