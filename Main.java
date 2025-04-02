@@ -18,8 +18,7 @@ public class Main {
         fileLocator.printFileCount(allFilePaths, typeFilePaths);
 
         System.out.println(".....................");
-        //fileLocator.printFilePaths(typeFilePaths);
-
+        fileLocator.printFilePaths(typeFilePaths);
 
     }
 }
