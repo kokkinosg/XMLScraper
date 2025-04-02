@@ -12,6 +12,9 @@ public class FileHandler {
     //#region Variables
     private BufferedReader reader;
     private ArrayList<File> fileList;
+    private ArrayList<String> commentsList;
+    private String commentStart;
+    private String commentEnd;
 
     //#endregion
 
@@ -26,31 +29,15 @@ public class FileHandler {
     //#region Methods
     // Prints the comments of a file only 
     public void printFileCommentsOnly(File file){
+
         // Get the XML to a string.
         String xmlString= getXMLtoString(file);
-        // Extract the first comment 
-        String comment = extractSingleComment(xmlString);
-        //Print it.
-        System.out.println(comment);
+
+        // Initialise the comment variables
+        commentStart = "<!--";
+        commentEnd = "-->";
     }
 
-    public String extractSingleComment (String xmlString){
-        // Declare and initialise the comments. 
-
-        String commentStart = "<!--";
-        String commentEnd = "-->";
-        int indexCommentStart;
-        int indexCommentEnd;
-        String commentString;
-
-        // Get the index of the first character of the commentStart and add the length of the comment Start to ensure that we read all characters after that.
-        indexCommentStart = (xmlString.indexOf(commentStart)) + commentStart.length();
-        indexCommentEnd = xmlString.indexOf(commentEnd);
-        // Extract a substring between the index comments
-        commentString = xmlString.substring(indexCommentStart, indexCommentEnd);
-
-        return commentString;
-    }
     
     // Prints the contents of a single file
     public void printFileContents(File file){
@@ -86,5 +73,58 @@ public class FileHandler {
             e.printStackTrace();
         }
         return "";
+    }
+
+    //#endregion
+
+    //#region Helper functions
+
+    // Get an arraylist consisting of all comments
+    private ArrayList<String> identifyAllComments(String xmlString){
+
+        // Delcare a reducedString which will be updated eveytime we cut a comment out of the original string. 
+        String processingString;
+        String comment; 
+
+        // Initialise the ArrayList to contain the comments to a file
+        commentsList = new ArrayList<String>();
+
+        while(true){
+            // Extract the first comment 
+            comment = identifySingleComment(xmlString);
+            // Cut it out of the original string
+            processingString = xmlString.replace(comment, "");
+            commentsList.add(comment);
+        }
+    }
+
+    // Get a string consiting of a single comments inlcuding the comment start and end singles.
+    private String identifySingleComment (String inputString){
+        if(doesStringHaveComments(inputString)){
+            // Declare and initialise the comments. 
+            int indexCommentStart;
+            int indexCommentEnd;
+            String commentString;
+
+            // Get the index of the first character of the commentStart and the index of the last character of commentEnd
+            indexCommentStart = (inputString.indexOf(commentStart));
+            indexCommentEnd = inputString.indexOf(commentEnd) + commentEnd.length();
+            // Extract a substring between the index comments
+            commentString = inputString.substring(indexCommentStart, indexCommentEnd);
+
+            return commentString;
+        } else {
+            System.out.println("There were no comments in the file");
+            return null;
+        }
+    }
+
+    private boolean doesStringHaveComments(String inpuString){
+        // If the comment start and end  donot exist, we assume htere are no comments in the string.
+        if(inpuString.indexOf(commentStart) == -1 && inpuString.indexOf(commentEnd) == -1){
+            return false;
+        } else {
+            return true;
+        }
     }
 }
