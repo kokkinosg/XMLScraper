@@ -31,7 +31,8 @@ public class Main {
 
         System.out.println("........................................");
 
-        fileHandler.printFileCommentsOnly(typeFilePaths.get(3));
+        //fileHandler.printFileCommentsOnly(typeFilePaths.get(7));
+        ArrayList<ArrayList<String>> allFileComments = fileHandler.getAllCommentsFromAllFiles();
 
     }
 }

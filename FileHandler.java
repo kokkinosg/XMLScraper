@@ -13,7 +13,10 @@ public class FileHandler {
     //#region Variables
     private BufferedReader reader;
     private ArrayList<File> fileList;
+    // All comments from a single file
     private ArrayList<String> commentsList;
+    // All comments from all files
+    private ArrayList<ArrayList<String>> allFileCommentsList;
     private String commentStart;
     private String commentEnd;
 
@@ -30,9 +33,29 @@ public class FileHandler {
     //#endregion
 
     //#region Methods
+    public ArrayList<ArrayList<String>> getAllCommentsFromAllFiles(){
+
+        // Initialise an empty arraylist to hold all comments to all files. Each element is all the comments of a single file. 
+
+        allFileCommentsList = new ArrayList<ArrayList<String>>();
+
+        // Initialise a new arraylist to hold the comments of each file.
+        ArrayList<String> singleFileComments = new ArrayList<String>();
+        
+        // Go over each file in fileList
+        for(File file: fileList){
+            // Get all comments from a file to an arraylist
+            singleFileComments = getAllCommentsFromFile(file);
+            // Add that arraylist to the grand arrayList
+            allFileCommentsList.add(singleFileComments);
+            // Status indicator
+            System.out.println("Processed: "+file.getName());
+        }
+        return allFileCommentsList;
+    }
    
     // Get all comments from a file into an ArrayList.
-    public ArrayList<String> getAllFileComments(File file){
+    public ArrayList<String> getAllCommentsFromFile(File file){
         
         // Get the XML to a string.
         String xmlString= getXMLtoString(file);
