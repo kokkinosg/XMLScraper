@@ -8,6 +8,8 @@ public class Main {
         String path = "/Users/george/Downloads/Scripts";
         String type = ".xml";
 
+        // FileLocator Tests
+
         FileLocator fileLocator = new FileLocator(path, type);
         ArrayList<File> allFilePaths = fileLocator.getAllFilePaths();
         ArrayList<File> typeFilePaths = fileLocator.getSpecificFilePaths();
@@ -19,6 +21,13 @@ public class Main {
 
         System.out.println(".....................");
         fileLocator.printFilePaths(typeFilePaths);
+
+        // FileHandler tests
+        FileHandler fileHandler = new FileHandler(typeFilePaths);
+
+        //fileHandler.printFileContents(typeFilePaths.get(0));
+
+        System.out.println(fileHandler.getXMLtoString(typeFilePaths.get(0)));
 
     }
 }
