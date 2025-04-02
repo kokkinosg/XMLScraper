@@ -20,10 +20,6 @@ public class FileLocator {
 
         // Initialise the directory by passing it as an argument to the constructor.
         this.primaryDirectoryPath = primaryDirectoryPath;
-        // Initialise an empty array list to take all files of a specified file.
-        this.typePathArrayList = new ArrayList<File>();
-        // Initialise an empty array list to take all files of all types. 
-        this.pathArrayList = new ArrayList<File>();
         // Initialise the file type
         this.fileType = fileType;
     }
@@ -34,6 +30,9 @@ public class FileLocator {
 
     // Gets all files of a specified type, e.g. xml. 
     public ArrayList<File> getSpecificFilePaths(){
+
+        // Initialise an empty array list to take all files of a specified file.
+        typePathArrayList = new ArrayList<File>();
 
         // Name of each file
         String fileName;
@@ -57,6 +56,9 @@ public class FileLocator {
     // Get all files in a directory.  
     // To be made private  
     public ArrayList<File> getAllFilePaths(){
+
+        // Initialise an empty array list to take all files of all types. 
+        this.pathArrayList = new ArrayList<File>();
 
         // Declare and initialise the primary directory as a file object
         File primaryDirectory = new File(primaryDirectoryPath);
