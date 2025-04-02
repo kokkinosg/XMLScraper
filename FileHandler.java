@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class FileHandler {
 
@@ -22,6 +23,8 @@ public class FileHandler {
     public FileHandler(ArrayList<File> fileList){
         //Initialise the list to contain all files to be handled
         this.fileList = fileList;
+        this.commentStart = "<!--";
+        this.commentEnd ="-->";
     }
 
     //#endregion
@@ -32,9 +35,16 @@ public class FileHandler {
 
         // Get the XML to a string.
         String xmlString= getXMLtoString(file);
+        ArrayList<String> comments = identifyAllComments(xmlString);
 
-        
+        // Print all comments 
+        for(String comment : comments){
+            System.out.println(comment);
+        }
     }
+
+    // Get all comments from a file into an ArrayList.
+    
 
     
     // Prints the contents of a single file
@@ -89,9 +99,10 @@ public class FileHandler {
 
         while(doesStringHaveComments(processingString)){
             // Extract the comment 
-            comment = identifySingleComment(xmlString);
-            // Cut it out of the original string
-            processingString = xmlString.replace(comment, "");
+            comment = identifySingleComment(processingString);
+            // Cut it out of the original string but only in its first occurance. To do this we use replaceFirst which takes a regex.
+            // But I create an exact reggex to the comment using Pattern.quote.
+            processingString = processingString.replaceFirst(Pattern.quote(comment), "");
             // Add it to the comments list
             commentsList.add(comment);
         }
@@ -120,9 +131,13 @@ public class FileHandler {
         }
     }
 
+    // Check if a string includes at least one comment. 
     private boolean doesStringHaveComments(String inpuString){
+
+        int indexCommentStart = inpuString.indexOf(commentStart);
+        int indexCommentEnd = inpuString.indexOf(commentEnd);
         // If the comment start and end  donot exist, we assume htere are no comments in the string.
-        if(inpuString.indexOf(commentStart) == -1 && inpuString.indexOf(commentEnd) == -1){
+        if(indexCommentStart == -1 && indexCommentEnd == -1){
             return false;
         } else {
             return true;

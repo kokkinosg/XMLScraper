@@ -27,11 +27,11 @@ public class Main {
 
         //fileHandler.printFileContents(typeFilePaths.get(0));
 
-        System.out.println(fileHandler.getXMLtoString(typeFilePaths.get(0)));
+        //System.out.println(fileHandler.getXMLtoString(typeFilePaths.get(0)));
 
         System.out.println("........................................");
 
-        fileHandler.printFileCommentsOnly(typeFilePaths.get(10));
+        fileHandler.printFileCommentsOnly(typeFilePaths.get(3));
 
     }
 }
