@@ -1,0 +1,36 @@
+<!--
+Script name: pINCUBATE_DROPS_PART1.xml
+Script last modified: 29/06/2020
+Script author: WW, RS
+Script purpose: Warm up the incubator
+-->
+
+<process Id="pINCUBATE_DROPS_PART1" Name="Warm up the incubator">
+  <!-- Log key system values -->
+  <callprocess Id="c1LOG_KEY_VALUES" TargetId="../99_Logs/pLOG_KEY_VALUES" Tip="Log key system values" />
+  
+  <!-- Initialise the system for incubation -->
+  <callprocess Id="cINITIALISE_FOR_INCUBATE_PT1" TargetId="pINITIALISE_FOR_INCUBATE_PT1" Tip="Put the system in pre-incubation state" />
+  
+  <!-- Log key system values -->
+  <callprocess Id="c2LOG_KEY_VALUES" TargetId="../99_Logs/pLOG_KEY_VALUES" Tip="Log key system values" />
+  
+  <!-- Warm the incubator -->
+  <callprocess Id="c1THERM_INC_WARM" TargetId="../17_ThermalControllers/pTHERM_INC_WARM" Tip="Set the incubator to warm"/>
+  
+  <!-- Log key system values -->
+  <callprocess Id="c3LOG_KEY_VALUES" TargetId="../99_Logs/pLOG_KEY_VALUES" Tip="Log key system values" />
+  
+  <!-- Set the dispense bottle to degas while incubating -->
+  <callprocess Id="cRAMP_UP_REG2_FOR_DEGAS" TargetId="../13_Regulators/pRAMP_UP_REG2_FOR_DEGAS" Tip="Degas the dispense bottle" />
+  
+  <!-- Log key system values -->
+  <callprocess Id="c4LOG_KEY_VALUES" TargetId="../99_Logs/pLOG_KEY_VALUES" Tip="Log key system values" />
+  
+  <!-- Set flow of oil through incubator to a low value -->
+  <callprocess Id="c1VALVES_OPEN_01" TargetId="../10_Valves/res/pVALVES_OPEN_01" Tip="Open valve 1" />
+  <callprocess Id="c1PUMP_1_200_1" TargetId="../15_SyringePumps/pPUMP_1_200" Tip="Slowly pump oil through incubator" />
+  
+  <!-- Log key system values -->
+  <callprocess Id="c5LOG_KEY_VALUES" TargetId="../99_Logs/pLOG_KEY_VALUES" Tip="Log key system values" />
+</process>
